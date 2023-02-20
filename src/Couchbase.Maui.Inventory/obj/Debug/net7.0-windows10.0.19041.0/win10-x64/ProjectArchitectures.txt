@@ -1,0 +1,1 @@
+C:\Users\alabe\Code\dotnet-maui-cblite-learning-path\src\Couchbase.Maui.Inventory\Couchbase.Maui.Inventory.csproj;x64
