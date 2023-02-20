@@ -1,45 +1,37 @@
-# Learn Couchbase Lite with Kotlin and Jetpack Compose
+# Learn Couchbase Lite with dotnet and Maui 
 
-In this learning path you will be reviewing an Android Application written in Kotlin and JetPack Compose that uses the Couchbase Lite Android SDK for Kotlin. You will learn how to get and insert documents using the key-value engine, query the database using the QueryBuilder engine or SQL++, and learn how to sync information between your mobile app and either a Couchbase Server using Sync Gateway or using peer-to-peer technology.
+In this learning path you will be reviewing an dotnet Application written in C# and Maui that uses the Couchbase Lite .NET SDK. You will learn how to get and insert documents using the key-value engine, query the database using the QueryBuilder engine or SQL++, and learn how to sync information between your mobile app and either a Couchbase Server using Sync Gateway or using peer-to-peer technology.
 
-Full documentation can be found on the [Couchbase Developer Portal](https://developer.couchbase.com/learn/android-kotlin).
+Full documentation can be found on the [Couchbase Developer Portal](https://developer.couchbase.com/)
 
 ## Prerequisites
 To run this prebuilt project, you will need:
-- Familiarity with building Android Apps with <a target="_blank" rel="noopener noreferrer" href="https://developer.android.com/kotlin">Kotlin</a>, <a target="_blank" rel="noopener noreferrer"  href="https://developer.android.com/jetpack/compose/mental-model">JetPack Compose</a>, and Android Studio 
-- [Android Studio Chimpmuck or above](https://developer.android.com/studio)
+- Familiarity with building dotnet Application with <a target="_blank" rel="noopener noreferrer" href="https://dotnet.microsoft.com/en-us/apps/maui">Maui</a>.
+- [Visual Studio or Visual Studio Code](https://visualstudio.microsoft.com/downloads/)
+- dotnet version 7 or above installed and setup
 - Android SDK installed and setup (> v.33.0.0)
 - Android Build Tools (> v.33.0.0)
 - Android device or emulator running API level 24 or above
-- JDK 11 (now embedded into Android Studio 4+)
 
 ### Installing Couchbase Lite Framework
 
-- src/build.gradle already contains the appropriate additions for downloading and utilizing the Android Couchbase Lite dependency module. However, in the future, to include Couchbase Lite support within an Android app add the following within the Module gradle file (src/app/build.gradle)
+- Nuget can be used to install the Couchbase Lite nuget package.  From the terminal in your main project directory, run the following command:
 
-```bash
-allprojects {
-    repositories {
-        ...
-
-        maven {
-            url "https://mobile.maven.couchbase.com/maven2/dev/"
-        }
-    }
-}
-``` 
+```bash 
+dotnet add package Couchbase.Lite
+```
  
-Then add the following to the <a target="_blank" rel="noopener noreferrer" href="https://github.com/couchbase-examples/android-kotlin-cblite-inventory-standalone/blob/main/src/app/build.gradle">app/build.gradle</a> file.
+An entry should be added to your CSPROJ file.
 
 ```bash
-dependencies {
-    ...
+...
+	<ItemGroup>
+		<PackageReference Include="Couchbase.Lite" Version="3.0.8" />
+	</ItemGroup>
 
-    implementation "com.couchbase.lite:couchbase-lite-android-ktx:3.0.2"
-}
 ```
 
-For more information on installation, please see the [Couchbase Lite Documentation](https://docs.couchbase.com/couchbase-lite/current/android/gs-install.html).
+For more information on installation, please see the [Couchbase Lite Documentation](https://docs.couchbase.com/couchbase-lite/current/csharp/gs-install.html).
 
 ## Demo Application 
 
@@ -51,22 +43,12 @@ Users running the mobile app would log into the application to see the projects 
 
 ### Architecture
 
-The demo application uses <a target="_blank" rel="noopener noreferrer" href="https://developer.android.com/jetpack/guide">application architecture</a> concepts in developing modern Android applications recommended by the Android development team.  
+The demo application uses <a target="_blank" rel="noopener noreferrer" href="https://dotnet.microsoft.com/en-us/learn/maui/architecture">application architecture</a> concepts in developing modern Maui applications recommended by the Maui development team.  
 
-<a target="_blank" rel="noopener noreferrer" href="https://insert-koin.io/">Koin</a>, the popular open-source Kotlin based injection library, is used to manage dependency inversion and injection.  Using Koin we can use JDK 11 versus Hilt or Dagger, which requires JDK 8.  
-
-The application structure is a single Activity that uses <a target="_blank" rel="noopener noreferrer"  href="https://developer.android.com/jetpack/compose/mental-model">JetPack Compose</a> to render the multiple compose-based views.  In addition, the <a target="_blank" rel="noopener noreferrer" href="https://developer.android.com/jetpack/compose/navigation">Navigation Graph</a> is used to handle routing and navigation between various views.  
-
-The Inventory Database is a custom class that manages the database state and lifecycle.  Querying and updating documents in the database is handled using the <a target="_blank" rel="noopener noreferrer" href="https://developer.android.com/jetpack/guide#data-layer">repository pattern</a>.  <a target="_blank" rel="noopener noreferrer" href="https://developer.android.com/jetpack/guide#domain-layer">ViewModels</a> will query or post updates to the repository and control the state of objects that the compose-based Views can use to display information. 
-
-### Flow
-
-The demo application starts with the InventoryApplication class, which inherits from the default Application class provided by Android.  <a target="_blank" rel="noopener noreferrer" href="https://insert-koin.io/docs/reference/koin-android/start">Koin</a> recommends this structure and is used to set up all the dependencies, including services, repositories, and ViewModels.  
-
-MainActivity then runs the setContent method which set up lifecycle management and creates the navigation controller used to handle navigation in the application.  The InventoryNavGraph function handles routing between views and sets the start destination to the LoginView function.  The InventoryNavGraph passes which view the LoginView should route to if the user logs in successfully.
+<a target="_blank" rel="noopener noreferrer" href="https://learn.microsoft.com/en-us/dotnet/architecture/maui/dependency-injection">Dependency injection</a> is handled using the built-in dotnet classes that are popular with the dotnet community.  <a target="_blank" rel="noopener noreferrer" href="https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection">Microsoft.Extensions.DependencyInjection</a> is used to set up the dependency injection container.  The container is used to set up the services that are used throughout the application.  The services are then injected into the various classes that need them.  The services are also injected into the ViewModels that are used to control the state of the application.
 
 ## Try it out
 
-* Open src/build.gradle using Android Studio.
+* Open src/Couchbase.Maui.sln using Visual Studio. 
 * Build and run the project.
 * Verify that you see the login screen.
